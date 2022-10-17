@@ -33,34 +33,6 @@ const {ListNode} = require("../extensions");
 // };
 
 
-//судя по всему, нам дан массив, который мы должны преобразовать в список, для этого пишем функцию
-
-// 1. create class-constructor
-// class ListNode {
-//   constructor(value) {
-//     this.value = value;
-//     this.next = null;
-//   }
-// }
-
-// 2. create list from array
-// function convertArrayToList(l) {
-//   if (!l.length) {
-//     return null;
-// }
-//   return l.reverse().reduce((acc, cur) => {
-//     if (acc) {
-//       const node = new ListNode(cur);
-//       node.next = acc;
-//       return node;
-//     }
-//
-//     return new ListNode(cur);
-//   }, null);
-// }
-
-// 3. byPass of list for checking
-
 /*let l1 = new ListNode(3);
 l1.next = new ListNode(4);
 l1.next.next = new ListNode(3);
@@ -89,18 +61,31 @@ function printLinkedList(list) {
 */
 // "3, 4, 3, 5, 6, 4"
 
-  function removeKFromList(data, example) {
-    let list = new ListNode(data)
-    // for (; current.next !== null; )
-    while (list !== null) {
-      if (list.next !==0 && list.next.value === example) {
-        list = list.next;
-
-      }
-        list = list.next;
-      if (list.next ==0) {return list}
-
+  function removeKFromList(list, example) {
+        // for (; current.next !== null; )
+    if (!list) {
+      return null;
     }
+
+    let deleted = null; // save link
+    while (list && list.value === example) {
+      deleted = list;
+      list = list.next;
+    }
+
+    let current = list;
+
+    if (current !== null) {
+      while (current.next) {
+        if (current.next.value === example) {
+          deleted = current.next;
+          current.next = current.next.next;
+        } else {
+          current = current.next;
+        }
+      }
+    }
+
     return list;
   }
 
