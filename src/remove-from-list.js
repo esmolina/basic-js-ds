@@ -84,6 +84,9 @@ function printLinkedList(list) {
           current = current.next;
         }
       }
+      if (!current.next && current.value === example) {
+        current = null;
+      }
     }
 
     return list;
